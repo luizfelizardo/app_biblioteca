@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1091324346268",
+    "project_id": "uniceu-alvarenga",
+    "storage_bucket": "uniceu-alvarenga.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1091324346268:android:757f01ebe24b7ae5f21259",
+        "android_client_info": {
+          "package_name": "com.example.biblioteca_uniceu_alvarenga"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeJqFDOpl0Ko7Z8GlZnbwLApxN6so9cbk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
