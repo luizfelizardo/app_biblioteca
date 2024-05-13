@@ -1,42 +1,14 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+//import 'package:biblioteca_uniceu_alvarenga/firebase_options.dart';
+import 'package:biblioteca_uniceu_alvarenga/myapp.dart';
+//import 'package:firebase_core/firebase_core.dart';
 
-void main() {
-  runApp(SuperApp());
-}
+Future<void> main(async) async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-class SuperApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'BIBLIOTECA COMUNITÁRIA UNICEU ALVARENGA',
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Text('BIBLIOTECA COMUNITÁRIA UNICEU ALVARENGA'),
-          ),
-          backgroundColor: Color(0xffc6d7c6),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'Tela 1',
-                  style: TextStyle(fontSize: 40),
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xff82ba86),
-                    shadowColor: Color(0xffdb3208),
-                    elevation: 3,
-                  ),
-                  onPressed: () {
-                    print('Botão pressionado');
-                  },
-                  child: const Text('Botão'),
-                ),
-              ],
-            ),
-          )),
-    );
-  }
+  //await Firebase.initializeApp(
+  //options: DefaultFirebaseOptions.currentPlatform,
+  //);
+
+  runApp(const MyApp());
 }
