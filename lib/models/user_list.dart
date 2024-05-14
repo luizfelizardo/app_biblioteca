@@ -39,7 +39,27 @@ class UserList extends StatelessWidget {
                             userProvider.indexUser = indexBuilder;
                             Navigator.popAndPushNamed(context, "/create");
                           },
-                          icon: const Icon(Icons.edit))
+                          icon: const Icon(Icons.edit)),
+                      IconButton(
+                          onPressed: () {
+                            userProvider.userSelected = users[indexBuilder];
+                            userProvider.indexUser = indexBuilder;
+                            Navigator.popAndPushNamed(context, "/view");
+                          },
+                          icon: const Icon(
+                            Icons.visibility,
+                            color: Color.fromARGB(255, 212, 172, 216),
+                          )),
+                      IconButton(
+                          onPressed: () {
+                            userProvider.indexUser = null;
+                            userProvider.users.removeAt(indexBuilder);
+                            Navigator.popAndPushNamed(context, "/List");
+                          },
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Color.fromARGB(255, 243, 91, 91),
+                          )),
                     ],
                   ),
                 ),

@@ -1,3 +1,4 @@
+import 'package:biblioteca_uniceu_alvarenga/models/user_view.dart';
 import 'package:flutter/material.dart';
 import 'package:biblioteca_uniceu_alvarenga/models/user_form.dart';
 import 'package:biblioteca_uniceu_alvarenga/models/user_list.dart';
@@ -16,6 +17,7 @@ class reservaPage extends StatelessWidget {
         routes: {
           "/create": (_) => const UserForm(),
           "/List": (_) => const UserList(),
+          "/view": (_) => UserView(),
         },
 
         //lista de usuarios
