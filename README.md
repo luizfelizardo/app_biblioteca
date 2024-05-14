@@ -1,22 +1,11 @@
 # biblioteca_uniceu_alvarenga
 
 
-https://github.com/luizfelizardo/app_biblioteca/assets/109241390/374aae57-e1e0-4e85-9085-3102227ab4b5
+
 
 
 EM CONSTRUÇÃO
 
 A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
