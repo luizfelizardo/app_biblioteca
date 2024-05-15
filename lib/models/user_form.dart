@@ -1,5 +1,6 @@
 // ignore_for_file: unused_local_variable
 
+import 'package:biblioteca_uniceu_alvarenga/container_all.dart';
 import 'package:flutter/material.dart';
 import 'package:biblioteca_uniceu_alvarenga/models/field_form.dart';
 import 'package:biblioteca_uniceu_alvarenga/models/user.dart';
@@ -37,7 +38,15 @@ class _UserFormState extends State<UserForm> {
       });
     }
 
+    GlobalKey<FormState> key = GlobalKey();
+
     void save() {
+      final isvalidated = key.currentState?.validate();
+
+      if (isvalidated == false) {
+        return;
+      }
+
       User user = User(
           name: controllername.text,
           address: controlleraddress.text,
@@ -52,7 +61,7 @@ class _UserFormState extends State<UserForm> {
         //salva um novo usuario
         userProvider.users.insert(usersLength, user);
       }
-      Navigator.popAndPushNamed(context, "/create");
+      Navigator.popAndPushNamed(context, "/List");
     }
 
     return Scaffold(
@@ -72,42 +81,47 @@ class _UserFormState extends State<UserForm> {
           )
         ],
       ),
-      body: Center(
-        child: Column(
-          children: [
-            fieldForm(
-              label: 'nome:',
-              isPassword: false,
-              controller: controllername,
-            ),
-            fieldForm(
-              label: 'Endereço:',
-              isPassword: false,
-              controller: controlleraddress,
-            ),
-            fieldForm(
-              label: 'Email:',
-              isPassword: false,
-              controller: controlleremail,
-            ),
-            fieldForm(
-              label: 'Senha:',
-              isPassword: true,
-              controller: controllerPassword,
-            ),
-            SizedBox(
-              width: double.infinity,
-              child: TextButton(
-                onPressed: save,
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(Theme.of(context).primaryColor),
-                  foregroundColor: MaterialStateProperty.all(Colors.white),
+      body: ContainerAll(
+        child: Center(
+          child: Form(
+            key: key,
+            child: Column(
+              children: [
+                fieldForm(
+                  label: 'nome:',
+                  isPassword: false,
+                  controller: controllername,
                 ),
-                child: const Text('Salvar'),
-              ),
-            )
-          ],
+                fieldForm(
+                  label: 'Endereço:',
+                  isPassword: false,
+                  controller: controlleraddress,
+                ),
+                fieldForm(
+                  label: 'Email:',
+                  isPassword: false,
+                  controller: controlleremail,
+                ),
+                fieldForm(
+                  label: 'Senha:',
+                  isPassword: true,
+                  controller: controllerPassword,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: TextButton(
+                    onPressed: save,
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          Theme.of(context).primaryColor),
+                      foregroundColor: MaterialStateProperty.all(Colors.white),
+                    ),
+                    child: const Text('Salvar'),
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );

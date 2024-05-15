@@ -1,3 +1,4 @@
+import 'package:biblioteca_uniceu_alvarenga/container_all.dart';
 import 'package:flutter/material.dart';
 import 'package:biblioteca_uniceu_alvarenga/models/user.dart';
 import 'package:biblioteca_uniceu_alvarenga/models/user_provider.dart';
@@ -23,47 +24,50 @@ class UserList extends StatelessWidget {
           },
         ),
       ),
-      body: ListView.builder(
-          itemCount: usersLength,
-          itemBuilder: (BuildContext contextBuilder, indexBuilder) => Container(
-                decoration: const BoxDecoration(
-                    border: Border(bottom: BorderSide(width: 0.4))),
-                child: ListTile(
-                  title: Text(users[indexBuilder].name),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            userProvider.userSelected = users[indexBuilder];
-                            userProvider.indexUser = indexBuilder;
-                            Navigator.popAndPushNamed(context, "/create");
-                          },
-                          icon: const Icon(Icons.edit)),
-                      IconButton(
-                          onPressed: () {
-                            userProvider.userSelected = users[indexBuilder];
-                            userProvider.indexUser = indexBuilder;
-                            Navigator.popAndPushNamed(context, "/view");
-                          },
-                          icon: const Icon(
-                            Icons.visibility,
-                            color: Color.fromARGB(255, 212, 172, 216),
-                          )),
-                      IconButton(
-                          onPressed: () {
-                            userProvider.indexUser = null;
-                            userProvider.users.removeAt(indexBuilder);
-                            Navigator.popAndPushNamed(context, "/List");
-                          },
-                          icon: const Icon(
-                            Icons.delete,
-                            color: Color.fromARGB(255, 243, 91, 91),
-                          )),
-                    ],
+      body: ContainerAll(
+        child: ListView.builder(
+            itemCount: usersLength,
+            itemBuilder: (BuildContext contextBuilder, indexBuilder) =>
+                Container(
+                  decoration: const BoxDecoration(
+                      border: Border(bottom: BorderSide(width: 0.4))),
+                  child: ListTile(
+                    title: Text(users[indexBuilder].name),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              userProvider.userSelected = users[indexBuilder];
+                              userProvider.indexUser = indexBuilder;
+                              Navigator.popAndPushNamed(context, "/create");
+                            },
+                            icon: const Icon(Icons.edit)),
+                        IconButton(
+                            onPressed: () {
+                              userProvider.userSelected = users[indexBuilder];
+                              userProvider.indexUser = indexBuilder;
+                              Navigator.popAndPushNamed(context, "/view");
+                            },
+                            icon: const Icon(
+                              Icons.visibility,
+                              color: Color.fromARGB(255, 62, 166, 250),
+                            )),
+                        IconButton(
+                            onPressed: () {
+                              userProvider.indexUser = null;
+                              userProvider.users.removeAt(indexBuilder);
+                              Navigator.popAndPushNamed(context, "/List");
+                            },
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Color.fromARGB(255, 243, 91, 91),
+                            )),
+                      ],
+                    ),
                   ),
-                ),
-              )),
+                )),
+      ),
     );
   }
 }

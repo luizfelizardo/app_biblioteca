@@ -12,7 +12,7 @@ class reservaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return UserProvider(
       child: MaterialApp(
-        title: 'CRUD APP',
+        title: 'App Biblioteca',
         home: const UserForm(),
         routes: {
           "/create": (_) => const UserForm(),

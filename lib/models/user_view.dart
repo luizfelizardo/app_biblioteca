@@ -1,5 +1,6 @@
 // ignore_for_file: unused_local_variable
 
+import 'package:biblioteca_uniceu_alvarenga/container_all.dart';
 import 'package:flutter/material.dart';
 import 'package:biblioteca_uniceu_alvarenga/models/field_form.dart';
 //import 'package:biblioteca_uniceu_alvarenga/models/user.dart';
@@ -47,65 +48,67 @@ class UserView extends StatelessWidget {
           )
         ],
       ),
-      body: Center(
-        child: Column(
-          children: [
-            fieldForm(
-              label: 'nome:',
-              isPassword: false,
-              controller: controllername,
-              isForm: false,
-            ),
-            fieldForm(
-              label: 'Endereço:',
-              isPassword: false,
-              controller: controlleraddress,
-              isForm: false,
-            ),
-            fieldForm(
-              label: 'Email:',
-              isPassword: false,
-              controller: controlleremail,
-              isForm: false,
-            ),
-            fieldForm(
-              label: 'Senha:',
-              isPassword: false,
-              controller: controllerPassword,
-              isForm: false,
-            ),
-            SizedBox(
-              width: double.infinity,
-              child: TextButton(
-                onPressed: () {
-                  Navigator.popAndPushNamed(context, "/create");
-                },
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(Theme.of(context).primaryColor),
-                  foregroundColor: MaterialStateProperty.all(Colors.white),
-                ),
-                child: const Text('Editar'),
+      body: ContainerAll(
+        child: Center(
+          child: Column(
+            children: [
+              fieldForm(
+                label: 'nome:',
+                isPassword: false,
+                controller: controllername,
+                isForm: false,
               ),
-            ),
-            SizedBox(
-              width: double.infinity,
-              child: TextButton(
-                onPressed: () {
-                  userProvider.indexUser = null;
-                  userProvider.users.removeAt(index!);
+              fieldForm(
+                label: 'Endereço:',
+                isPassword: false,
+                controller: controlleraddress,
+                isForm: false,
+              ),
+              fieldForm(
+                label: 'Email:',
+                isPassword: false,
+                controller: controlleremail,
+                isForm: false,
+              ),
+              fieldForm(
+                label: 'Senha:',
+                isPassword: false,
+                controller: controllerPassword,
+                isForm: false,
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.popAndPushNamed(context, "/create");
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        Theme.of(context).primaryColor),
+                    foregroundColor: MaterialStateProperty.all(Colors.white),
+                  ),
+                  child: const Text('Editar'),
+                ),
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: TextButton(
+                  onPressed: () {
+                    userProvider.indexUser = null;
+                    userProvider.users.removeAt(index!);
 
-                  Navigator.popAndPushNamed(context, "/create");
-                },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                      Color.fromARGB(255, 247, 100, 90)),
-                  foregroundColor: MaterialStateProperty.all(Colors.white),
+                    Navigator.popAndPushNamed(context, "/create");
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        const Color.fromARGB(255, 247, 100, 90)),
+                    foregroundColor: MaterialStateProperty.all(Colors.white),
+                  ),
+                  child: const Text('Excluir'),
                 ),
-                child: const Text('Excluir'),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

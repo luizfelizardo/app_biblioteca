@@ -1,3 +1,4 @@
+import 'package:biblioteca_uniceu_alvarenga/container_all.dart';
 import 'package:flutter/material.dart';
 
 class CatalogoItem {
@@ -58,42 +59,44 @@ class _catalogo_pageState extends State<catalogoPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 228, 231, 235),
-      appBar: AppBar(
-        title: const Text("Tela Catálogo de Livros"),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
-      body: Stack(
-        children: [
-          ListView.builder(
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              final item = items[index];
-              return ListTile(
-                title: Text(item.title),
-                subtitle: Text(item.description),
-              );
+    return ContainerAll(
+      child: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 247, 240, 248),
+        appBar: AppBar(
+          title: const Text("Tela Catálogo de Livros"),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
             },
           ),
-          Positioned(
-            bottom: 20,
-            right: 20,
-            child: FloatingActionButton(
-              onPressed: () {
-                // Ação ao clicar no botão "+"
-                print('Botão "+" pressionado!');
-                // Implementar a lógica desejada para o botão "+"
+        ),
+        body: Stack(
+          children: [
+            ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (context, index) {
+                final item = items[index];
+                return ListTile(
+                  title: Text(item.title),
+                  subtitle: Text(item.description),
+                );
               },
-              child: const Icon(Icons.add),
             ),
-          ),
-        ],
+            Positioned(
+              bottom: 20,
+              right: 20,
+              child: FloatingActionButton(
+                onPressed: () {
+                  // Ação ao clicar no botão "+"
+                  print('Botão "+" pressionado!');
+                  // Implementar a lógica desejada para o botão "+"
+                },
+                child: const Icon(Icons.add),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
