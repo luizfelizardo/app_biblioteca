@@ -1,11 +1,21 @@
+import 'dart:convert';
+
 import 'package:biblioteca_uniceu_alvarenga/container_all.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CatalogoItem {
   final String title;
   final String description;
 
   CatalogoItem(this.title, this.description);
+
+  toJson() {
+    return {
+      'title': title,
+      'description': description,
+    };
+  }
 }
 
 class Catalogo {}
@@ -23,38 +33,22 @@ class _catalogo_pageState extends State<catalogoPage> {
         "Autor: Vinícius de Moraes \nEditora: Editora Companhia das Letrinhas \nISBN: "),
     CatalogoItem("Livro: Vidas Secas",
         "Autor: Graciliano Ramos \nEditora: Editora Companhia das Letras \nISBN: "),
-    CatalogoItem(
-      "Livro: O Cortiço",
-      "Autor: Aluísio Azevedo\nEditora: Editora Nova Fronteira\nISBN: 978-85-375-4397-2",
-    ),
-    CatalogoItem(
-      "Livro: Dom Casmurro",
-      "Autor: Machado de Assis\nEditora: Editora Nova Fronteira\nISBN: 978-85-375-4398-9",
-    ),
-    CatalogoItem(
-      "Livro: Memórias Póstumas de Brás Cubas",
-      "Autor: Machado de Assis\nEditora: Editora Nova Fronteira\nISBN: 978-85-375-4399-6",
-    ),
-    CatalogoItem(
-      "Livro: O Triste Fim de Policarpo Quaresma",
-      "Autor: Lima Barreto\nEditora: Editora Nova Fronteira\nISBN: 978-85-375-4400-2",
-    ),
-    CatalogoItem(
-      "Livro: O Ateneu",
-      "Autor: Raul Pompeia\nEditora: Editora Nova Fronteira\nISBN: 978-85-375-4401-9",
-    ),
-    CatalogoItem(
-      "Livro: O Quinze",
-      "Autor: Machado de Assis\nEditora: Editora Nova Fronteira\nISBN: 978-85-375-4402-6",
-    ),
-    CatalogoItem(
-      "Livro: Contos de Machado de Assis",
-      "Autor: Machado de Assis\nEditora: Editora Nova Fronteira\nISBN: 978-85-375-4403-3",
-    ),
-    CatalogoItem(
-      "Livro: Maira",
-      "Autor: Jorge Amado\nEditora: Editora Record\nISBN: 978-85-00-10272-4",
-    ),
+    CatalogoItem("Livro: O Cortiço",
+        "Autor: Aluísio Azevedo\nEditora: Editora Nova Fronteira\nISBN: 978-85-375-4397-2"),
+    CatalogoItem("Livro: Dom Casmurro",
+        "Autor: Machado de Assis\nEditora: Editora Nova Fronteira\nISBN: 978-85-375-4398-9"),
+    CatalogoItem("Livro: Memórias Póstumas de Brás Cubas",
+        "Autor: Machado de Assis\nEditora: Editora Nova Fronteira\nISBN: 978-85-375-4399-6"),
+    CatalogoItem("Livro: O Triste Fim de Policarpo Quaresma",
+        "Autor: Lima Barreto\nEditora: Editora Nova Fronteira\nISBN: 978-85-375-4400-2"),
+    CatalogoItem("Livro: O Ateneu",
+        "Autor: Raul Pompeia\nEditora: Editora Nova Fronteira\nISBN: 978-85-375-4401-9"),
+    CatalogoItem("Livro: O Quinze",
+        "Autor: Machado de Assis\nEditora: Editora Nova Fronteira\nISBN: 978-85-375-4402-6"),
+    CatalogoItem("Livro: Contos de Machado de Assis",
+        "Autor: Machado de Assis\nEditora: Editora Nova Fronteira\nISBN: 978-85-375-4403-3"),
+    CatalogoItem("Livro: Maira",
+        "Autor: Jorge Amado\nEditora: Editora Record\nISBN: 978-85-00-10272-4"),
   ];
 
   @override
@@ -88,9 +82,7 @@ class _catalogo_pageState extends State<catalogoPage> {
               right: 20,
               child: FloatingActionButton(
                 onPressed: () {
-                  // Ação ao clicar no botão "+"
-                  print('Botão "+" pressionado!');
-                  // Implementar a lógica desejada para o botão "+"
+                  _adicionarNovoLivro(); // Chamar a função para adicionar novo livro
                 },
                 child: const Icon(Icons.add),
               ),
@@ -100,4 +92,63 @@ class _catalogo_pageState extends State<catalogoPage> {
       ),
     );
   }
+
+  void _adicionarNovoLivro() {
+    // Mostrar o formulário para novo livro
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Adicionar Livro Novo'),
+          content: SingleChildScrollView(
+            child: Column(
+              children:
+                  List.generate(2, (index) => _buildTextField(index)).toList(),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () {
+                // Salvar o novo livro
+                Navigator.of(context).pop();
+              },
+              child: const Text('Salvar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _buildTextField extends StatelessWidget {
+  final int index;
+
+  const _buildTextField(this.index);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextField(
+        decoration: InputDecoration(
+          labelText: index == 0 ? 'Título' : 'Autor',
+          border: OutlineInputBorder(),
+        ),
+      ),
+    );
+  }
+}
+
+Future<void> _saveItems() async {
+  final prefs = await SharedPreferences.getInstance();
+  var items = <CatalogoItem>[];
+  final jsonString = jsonEncode(items.map((item) => item.toJson()).toList());
+  await prefs.setString('items', jsonString);
 }

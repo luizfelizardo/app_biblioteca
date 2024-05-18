@@ -97,7 +97,7 @@ class UserView extends StatelessWidget {
                     userProvider.indexUser = null;
                     userProvider.users.removeAt(index!);
 
-                    Navigator.popAndPushNamed(context, "/create");
+                    Navigator.popAndPushNamed(context, "/list");
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(

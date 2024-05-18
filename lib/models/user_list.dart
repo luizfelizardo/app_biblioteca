@@ -55,8 +55,32 @@ class UserList extends StatelessWidget {
                             )),
                         IconButton(
                             onPressed: () {
-                              userProvider.indexUser = null;
-                              userProvider.users.removeAt(indexBuilder);
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: const Text("Atenção"),
+                                      content: const Text(
+                                          "Deseja realmente excluir o usuário?"),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text("Cancelar")),
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              userProvider.indexUser = null;
+                                              userProvider.users
+                                                  .removeAt(indexBuilder);
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text("Confirmar")),
+                                      ],
+                                    );
+                                  }); // showDialog
+
                               Navigator.popAndPushNamed(context, "/List");
                             },
                             icon: const Icon(

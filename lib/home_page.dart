@@ -1,4 +1,4 @@
-import 'package:biblioteca_uniceu_alvarenga/container_all.dart';
+//import 'package:biblioteca_uniceu_alvarenga/container_all.dart';
 import 'package:flutter/material.dart';
 import 'package:biblioteca_uniceu_alvarenga/catalogo_page.dart';
 import 'package:biblioteca_uniceu_alvarenga/reserva_page.dart';
@@ -15,19 +15,6 @@ mostrarReserva(catalogoPage) {}
 class _HomePageState extends State<HomePage> {
   final controller = TextEditingController();
   final list = <String>[];
-  //final int _index = 0;
-
-  //Widget? _switcherBody() {
-  //switch (_index) {
-  //case 0:
-  //return const Center(child: Text("PÁGINA PRINCIPAL"));
-  //case 1:
-  // return const Center(child: Text("CATÁLOGO DE LIVROS"));
-  //case 2:
-  // return const Center(child: Text("RESERVE SEU LIVRO AQUI !"));
-  // }
-  //return null;
-  //}
 
   @override
   Widget build(BuildContext context) {
@@ -71,87 +58,106 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       //backgroundColor: Color.fromARGB(255, 255, 255, 255),
-      body: ContainerAll(
-        child: Center(
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                // child: Image.asset(
-                //  'assets/imgs/livros.png',
-                //  fit: BoxFit.cover,
+      body: Center(
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: Image.asset(
+                'assets/imgs/livros.png',
+                fit: BoxFit.cover,
               ),
-              //  ),
-              Container(
-                color: Colors.black.withOpacity(0.10),
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const FlutterLogo(
-                        size: 200,
+            ),
+            Container(
+              color: Colors.black.withOpacity(0.10),
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const FlutterLogo(
+                      size: 0,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const catalogoPage()),
+                        );
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: Text('Catálogo de livros',
+                            style: TextStyle(
+                              fontSize: 18,
+                            )),
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const catalogoPage()),
-                          );
-                        },
-                        child: const Padding(
-                          padding: EdgeInsets.all(20.0),
-                          child: Text('Catálogo de livros',
-                              style: TextStyle(
-                                fontSize: 18,
-                              )),
-                        ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const reservaPage()),
+                        );
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: Text('Cadastro de Usuários',
+                            style: TextStyle(
+                              fontSize: 18,
+                            )),
                       ),
-                      const SizedBox(
-                        height: 30,
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text("Atenção"),
+                                content: const Text("Deseja realmente sair?"),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text("Cancelar")),
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text("Confirmar")),
+                                ],
+                              );
+                            }); // showDialog
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: Text('Sair do app',
+                            style: TextStyle(
+                              fontSize: 20,
+                            )),
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const reservaPage()),
-                          );
-                        },
-                        child: const Padding(
-                          padding: EdgeInsets.all(20.0),
-                          child: Text('Cadastro de Usuários',
-                              style: TextStyle(
-                                fontSize: 18,
-                              )),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Padding(
-                          padding: EdgeInsets.all(20.0),
-                          child: Text('Sair do app',
-                              style: TextStyle(
-                                fontSize: 20,
-                              )),
-                        ),
-                      ),
-                    ]),
-              )
-            ],
-          ),
+                    ),
+                  ]),
+            )
+          ],
         ),
       ),
     );

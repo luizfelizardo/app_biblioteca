@@ -11,7 +11,7 @@ class ContainerAll extends StatelessWidget {
         margin: const EdgeInsets.all(10.0),
         padding: const EdgeInsets.all(10.0),
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 252, 231, 250),
+          color: const Color.fromARGB(255, 250, 242, 249),
           borderRadius: BorderRadius.circular(20.0),
         ),
         child: child);

@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const LoginPage(),
         '/home': (context) => const HomePage(),
         '/catalogo': (context) => const catalogoPage(),
-        '/reserva': (context) => const reservaPage()
+        '/reserva': (context) => const reservaPage(),
       },
     );
   }
