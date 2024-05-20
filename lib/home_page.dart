@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:biblioteca_uniceu_alvarenga/catalogo_page.dart';
 import 'package:biblioteca_uniceu_alvarenga/reserva_page.dart';
 
+import 'package:url_launcher/url_launcher.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -33,15 +35,33 @@ class _HomePageState extends State<HomePage> {
 
             // ignore: prefer_const_constructors
             ListTile(
-              leading: const Icon(Icons.contact_mail),
-              title: const Text('Contatos'),
-              subtitle: const Text('Tel: \nEmail: \nSite:'),
+              leading: const Icon(Icons.language),
+              title: const Text('Visite nosso site \nCEU Alvarenga'),
+              onTap: () async {
+                const url =
+                    'https://ceu.sme.prefeitura.sp.gov.br/unidade/ceu-alvarenga/'; // URL do Gmail
+                try {
+                  await launchUrl(Uri.parse(url));
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Erro ao abrir o e-mail:')),
+                  );
+                }
+              },
+            ),
+
+            const ListTile(
+              leading: Icon(Icons.phone),
+              title: Text('Telefone'),
+              subtitle: Text('(11) 5672-2500 / (11) 5672-2544'),
             ),
             const ListTile(
               leading: Icon(Icons.info),
               title: Text('Informações'),
-              subtitle: Text('Endereço: \nHorário de funcionamento:'),
+              subtitle: Text(
+                  'Estrada do Alvarenga, 3752  \nBalneário São Francisco - \nPedreira - CEP: 04474340'),
             ),
+
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Sair'),

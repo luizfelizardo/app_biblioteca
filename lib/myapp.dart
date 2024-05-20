@@ -1,3 +1,4 @@
+import 'package:biblioteca_uniceu_alvarenga/models/user_list.dart';
 import 'package:flutter/material.dart';
 import 'package:biblioteca_uniceu_alvarenga/login_page.dart';
 import 'package:biblioteca_uniceu_alvarenga/reserva_page.dart';
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomePage(),
         '/catalogo': (context) => const catalogoPage(),
         '/reserva': (context) => const reservaPage(),
+        '/lista': (context) => const UserList(),
       },
     );
   }
