@@ -67,8 +67,7 @@ class _CatalogoPageState extends State<catalogoPage> {
 
       setState(() {
         items = querySnapshot.docs
-            .map((doc) => CatalogoItem.fromJson(
-                doc.data() as Map<String, dynamic>, doc.id))
+            .map((doc) => CatalogoItem.fromJson(doc.data(), doc.id))
             .toList();
       });
     } catch (e) {
@@ -91,6 +90,22 @@ class _CatalogoPageState extends State<catalogoPage> {
     }
   }
 
+  // Função para excluir um item
+  Future<void> _deleteItem(String itemId) async {
+    try {
+      final firestore = FirebaseFirestore.instance;
+      final catalogo = firestore.collection('catalogo');
+      await catalogo.doc(itemId).delete();
+
+      await _loadItems();
+      setState(() {});
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erro ao excluir o livro: $e')),
+      );
+    }
+  }
+
   void _adicionarNovoLivro() {
     showDialog(
       context: context,
@@ -99,7 +114,8 @@ class _CatalogoPageState extends State<catalogoPage> {
         String newDescription = '';
 
         return AlertDialog(
-          title: const Text('Adicionar Livro Novo'),
+          title: const Text('Adicionar livro ao catálogo',
+              textAlign: TextAlign.center),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -125,12 +141,12 @@ class _CatalogoPageState extends State<catalogoPage> {
                   final newItem = CatalogoItem(
                       title: newTitle, description: newDescription, id: '');
                   await _saveItem(newItem);
-                  await _loadItems(); // Recarrega os itens após salvar
+                  await _loadItems();
                   setState(() {});
                   Navigator.pop(context);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Preencha todos os campos!')),
+                    const SnackBar(content: Text('Preencha todos os campos!')),
                   );
                 }
               },
@@ -146,7 +162,7 @@ class _CatalogoPageState extends State<catalogoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tela Catálogo de Livros"),
+        title: const Text("Catálogo de Livros"),
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -154,14 +170,31 @@ class _CatalogoPageState extends State<catalogoPage> {
               itemCount: items.length,
               itemBuilder: (context, index) {
                 final item = items[index];
-                return ListTile(
-                  title: Text(item.title),
-                  subtitle: Text(item.description),
+                return Dismissible(
+                  // Widget para tornar o item deslizável e excluível
+                  key: Key(item.id),
+                  direction: DismissDirection.endToStart,
+                  onDismissed: (direction) {
+                    _deleteItem(item.id);
+                  },
+                  background: Container(
+                    color: Colors.red,
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.only(right: 20.0),
+                    child: const Icon(
+                      Icons.delete,
+                      color: Colors.white,
+                    ),
+                  ),
+                  child: ListTile(
+                    title: Text(item.title),
+                    subtitle: Text(item.description),
+                  ),
                 );
               },
             ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _adicionarNovoLivro, // Chama a função para adicionar livro
+        onPressed: _adicionarNovoLivro,
         child: const Icon(Icons.add),
       ),
     );
